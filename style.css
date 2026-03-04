@@ -1,0 +1,567 @@
+:root {
+    --primary: #2c3e50;
+    --orange: #FF8C00;
+    --bg: #f4f6f9;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Sarabun', sans-serif;
+    background: #f4f6f9;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* เปลี่ยนจากเดิมให้เรียงจากบนลงล่าง */
+    min-height: 100vh;
+    color: #333;
+}
+
+/* จัดการโครงสร้างหลัก */
+/* ===== TOPBAR ===== */
+
+.topbar {
+    width: 100%;
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.topbar-logo {
+    height: 40px;
+}
+
+.topbar-right {
+    display: flex;
+    gap: 30px;
+}
+
+.topbar-item {
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: 0.3s;
+    color: #333;
+}
+
+.topbar-item:hover {
+    background: #f0f2f5;
+}
+
+.topbar-item.active {
+    background: #FF8C00;
+    color: white;
+}
+
+
+.header-nav {
+    width: 100%;
+    text-align: center;
+    padding: 60px 0 25px 0;
+}
+
+.main-title {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.3;
+    background: linear-gradient(90deg, #FF8C00, #FFB347, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.main-content {
+    display: flex;
+    flex-direction: row; /* บังคับเรียง ซ้าย-ขวา */
+    flex: 1;
+    width: 100%;
+    align-items: flex-start; /* ให้ของเริ่มจากด้านบน */
+}
+
+.sub-title {
+    margin: 10px 0 0 0;
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.map-container {
+    flex: 1;            /* กินพื้นที่ฝั่งซ้ายที่เหลือ */
+    display: flex;
+    margin-top: 0 !important; /* ลบ margin เดิมที่เคยตั้งไว้ */
+}
+
+.sidebar {
+    width: 400px;        /* ล็อคความกว้างฝั่งขวาไว้ */
+    min-width: 350px;
+    background: #eef1f5;
+    padding: 30px;
+    border-left: 1px solid #e0e0e0;
+    height: calc(100vh - 70px); /* ให้สูงเท่าหน้าจอที่เหลือ */
+    position: sticky;    /* ให้แถบเดือนค้างไว้เวลาเลื่อนแผนที่ */
+    top: 70px;
+    overflow-y: auto;    /* ถ้าเดือนเยอะให้เลื่อนขึ้นลงในแถบได้ */
+}
+
+.map-card {
+    position: relative;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#map-img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+}
+
+.dot {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: var(--orange);
+    border: 3px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.dot:hover {
+    transform: scale(1.5);
+    background: #ffb347;
+    box-shadow: 0 0 20px var(--orange);
+}
+
+.active-dot {
+    transform: scale(1.5);
+    background: white !important;
+    border-color: var(--orange) !important;
+    box-shadow: 0 0 20px var(--orange);
+}
+
+
+
+.top-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#yearSelect,
+#buildingSelect {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'Sarabun';
+    font-weight: 600;
+}
+
+#display-name {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item .label {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.stat-item .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--orange);
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 6px;
+}
+
+.chart-wrapper {
+    flex: 1;
+    min-height: 320px;
+    background: white;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+/* ===== HERO SECTION ===== */
+
+.hero-section {
+    width: 100%;
+    height: 180px;
+    /* ลดจาก 300 → 180 */
+    background: url("kmutt1.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.55));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-section .main-title {
+    color: white;
+    font-size: clamp(22px, 3vw, 32px);
+    /* ลดลง */
+    font-weight: 700;
+    margin: 0;
+}
+
+
+.hero-section .sub-title {
+    color: #f0f0f0;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+
+.energy-cards {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.energy-card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    /* เพิ่มบรรทัดนี้ */
+}
+
+.energy-cards::-webkit-scrollbar {
+    width: 8px;
+}
+
+.energy-cards::-webkit-scrollbar-thumb {
+    background: var(--orange);
+    border-radius: 10px;
+}
+
+.energy-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #333;
+}
+
+
+/* พื้นที่พรีวิวกราฟ */
+.chart-preview-container {
+    height: 250px;
+    /* ความสูงกำลังดี */
+    background: #111;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+}
+
+.btn-confirm {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-confirm:hover {
+    background: #218838;
+}
+
+.btn-cancel {
+    background: none;
+    color: #999;
+    border: none;
+    margin-top: 15px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    text-decoration: underline;
+}
+
+.btn-cancel:hover {
+    color: white;
+}
+
+.energy-value {
+    font-weight: 600;
+    color: #000;
+}
+
+.topbar-logo {
+    height: 55px;
+}
+
+.visitor-section {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background: #e9edf2;
+    font-weight: 600;
+    border-top: 1px solid #ddd;
+}
+
+
+CSS
+
+/* ส่วน Map และ Sidebar เดิมของคุณ ให้คงไว้แต่เช็คว่ามี flex: 1 ไหม */
+.content-wrapper { /* สมมติว่าคุณห่อ Map กับ Sidebar ไว้ */
+    display: flex;
+    flex: 1; /* ส่วนนี้สำคัญมาก! จะช่วยดัน Footer ลงข้างล่างสุด */
+}
+/* --- ส่วน Footer (ย้ายออกมาข้างนอก @media) --- */
+.footer-container {
+    width: 100%;
+    background-color: #0b1120 !important;
+    color: white !important;
+    padding: 40px 10% 20px 10%;
+    border-top: 4px solid #2ecc71;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.section-heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #d1d5db;
+    margin: 5px 0;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-list li {
+    font-size: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    color: #d1d5db;
+}
+
+.contact-list i {
+    margin-right: 10px;
+    color: #e63946;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-social {
+    background-color: #1f2937;
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s;
+    border: 1px solid #374151;
+}
+
+.btn-social:hover {
+    background-color: #374151;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #1f2937;
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+/* ============================= */
+/* 📱 MOBILE RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    body {
+        flex-direction: column;
+    }
+
+    .topbar {
+        padding: 0 20px;
+        height: 60px;
+    }
+
+    .topbar-right {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        /* ให้เลื่อนได้ */
+        white-space: nowrap;
+        /* ห้ามตัดบรรทัด */
+        scrollbar-width: none;
+        /* ซ่อน scrollbar (Firefox) */
+    }
+
+    .topbar-right::-webkit-scrollbar {
+        display: none;
+        /* ซ่อน scrollbar (Chrome) */
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .topbar-item {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+
+    .hero-section {
+        height: 140px;
+    }
+
+    .map-container {
+        margin-top: 0;
+        padding: 15px;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-top: 0;
+        border-left: none;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .map-card {
+        max-width: 100%;
+    }
+
+    .energy-cards {
+        max-height: none;
+    }
+
+    /* css footer*/
+
+    /* ปรับแต่งสำหรับมือถือ */
+    /* สำหรับมือถือ ให้กลับมาเรียงลงมาข้างล่าง */
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        border-left: none;
+    }
+
+}
+
+}

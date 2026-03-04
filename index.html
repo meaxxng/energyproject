@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัตราการใช้พลังงานไฟฟ้าอาคาร KMUTT</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="topbar-left">
+            <img src="lgeesh.png" alt="Logo" class="topbar-logo">
+        </div>
+
+        <div class="topbar-right">
+            <div class="topbar-item active">มจธ.บางมด</div>
+            <div class="topbar-item">มจธ.บางขุนเทียน</div>
+            <div class="topbar-item">มจธ.ราชบุรี</div>
+            <div class="topbar-item">เคเอ็กซ์</div>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <div class="hero-overlay">
+            <h1 class="main-title">
+                อัตราการใช้พลังงานไฟฟ้ามหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
+            </h1>
+            <p class="sub-title">
+                    วิทยาเขตบางมด
+            </p>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="map-container">
+
+
+            <div class="map-card">
+                <img src="IMG1.jpg" id="map-img">
+
+                <div class="dot" data-name="อาคาร KX" style="top:35%; left:48%;" onclick="selectBuilding('อาคาร KX')">
+                </div>
+                <div class="dot" data-name="อาคารคณะ IT" style="top:52%; left:38%;"
+                    onclick="selectBuilding('อาคารคณะ IT')">
+                </div>
+                <div class="dot" data-name="สำนักงานหอสมุด" style="top:62%; left:58%;"
+                    onclick="selectBuilding('สำนักงานหอสมุด')"></div>
+                <div class="dot" data-name="อาคารอธิการบดี" style="top:28%; left:72%;"
+                    onclick="selectBuilding('อาคารอธิการบดี')"></div>
+            </div>
+            <div class="sidebar">
+
+                <div class="top-controls">
+                    <select id="yearSelect">
+                        <option value="2566">ปี 2566</option>
+                        <option value="2567">ปี 2567</option>
+                        <option value="2568" selected>ปี 2568</option>
+                    </select>
+
+                    <select id="buildingSelect"></select>
+                </div>
+
+                <h2 id="display-name">เลือกอาคาร</h2>
+
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="label">อัตราการใช้พลังงานไฟฟ้า มจธ.บางมด (kWh)</div>
+                        <div class="value" id="display-unit">0</div>
+                    </div>
+                </div>
+                <div id="energyCards" class="energy-cards"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="previewSection" style="display:none;">
+        <p id="previewText" style="text-align:left; color:#ffca2c; margin-bottom:5px; font-size:14px;"></p>
+        <div class="chart-preview-container">
+            <canvas id="previewChart"></canvas>
+        </div>
+        <button id="confirmUploadBtn" class="btn-confirm" style="margin-top:10px;">ยืนยันและอัปเดตข้อมูล</button>
+    </div>
+
+    <div id="uploadStatus"></div>
+    </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <footer class="footer-container">
+        <div class="footer-content">
+
+            <div class="footer-section">
+                <h2 class="footer-title">EESH KMUTT</h2>
+                <p>ศูนย์การจัดการด้านพลังงาน สิ่งแวดล้อม ความปลอดภัยและอาชีวอนามัย</p>
+                <p>มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</p>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="section-heading">ช่องทางติดต่อ</h3>
+                <ul class="contact-list">
+                    <li><i class="fas fa-map-marker-alt"></i> 126 ถนนประชาอุทิศ เขตทุ่งครุ กรุงเทพฯ 10140</li>
+                    <li><i class="fas fa-phone-alt"></i> 02 470 8293</li>
+                    <li><i class="fas fa-envelope"></i> eesh@kmutt.ac.th</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="section-heading">ติดตามเรา</h3>
+                <div class="social-buttons">
+                    <a href="https://www.facebook.com/eeshkmutt" target="_blank" class="btn-social">Facebook</a>
+                    <a href="https://www.instagram.com/eeshkmutt" target="_blank" class="btn-social">Instagram</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Energy Environment Safety and Health (EESH). All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</html>
