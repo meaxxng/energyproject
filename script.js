@@ -106,6 +106,36 @@ if(!count){
 localStorage.setItem("visitorCount", count);
 document.getElementById("visitorCount").innerText = count;
 
+//เก็บสถิติการเข้าชมหน้าเว็บเพจ//
+
+(function() {
+    document.addEventListener('DOMContentLoaded', () => {
+        const key = 'v_stats_global_counter';
+        let count = localStorage.getItem(key) || 0;
+        
+        count = parseInt(count) + 1;
+        localStorage.setItem(key, count);
+
+        const target = document.getElementById('v-stats-display-large');
+        if (target) {
+            runCounter(target, 0, count, 2000); // 2 วินาทีเพื่อให้ดูอลังการ
+        }
+    });
+
+    function runCounter(el, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            el.innerText = Math.floor(progress * (end - start) + start).toLocaleString();
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+})();
+
 //footer//
 
 // ฟังก์ชันสำหรับจัดการพฤติกรรมการคลิก (ถ้าต้องการเก็บสถิติหรือ Log)
