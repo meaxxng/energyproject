@@ -292,8 +292,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-height: 420px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     padding-right: 8px;
 }
 
@@ -534,20 +534,31 @@ CSS
         padding: 15px;
     }
 
-    .sidebar {
-        width: 100%;
-        margin-top: 0;
-        border-left: none;
-        border-top: 1px solid #e0e0e0;
-    }
+.sidebar {
+    width: 400px;        
+    min-width: 350px;
+    background: #eef1f5;
+    padding: 30px;
+    border-left: 1px solid #e0e0e0;
+    height: auto !important;      /* ให้ความสูงยืดตามจำนวนเดือนจริง */
+    position: relative !important; /* ปิดการเกาะติดหน้าจอ ไม่ให้เลื่อนตาม */
+    top: 0 !important;             /* รีเซ็ตตำแหน่งให้อยู่บนสุดของส่วนเนื้อหา */
+    overflow: visible !important;  /* ปิดแถบเลื่อนทุกชนิด */
+}
 
     .map-card {
         max-width: 100%;
     }
 
-    .energy-cards {
-        max-height: none;
-    }
+.energy-cards {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: none !important;    /* ปลดล็อคให้แสดงครบทุกเดือน */
+    overflow: visible !important;   /* ปิดการซ่อนเนื้อหา */
+    padding-right: 8px;
+}
 
     /* css footer*/
 
