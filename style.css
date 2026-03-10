@@ -85,7 +85,7 @@ body {
     flex-direction: row; /* บังคับเรียง ซ้าย-ขวา */
     flex: 1;
     width: 100%;
-    align-items: flex-start; /* ให้ของเริ่มจากด้านบน */
+    align-items: stretch; /* ให้ของเริ่มจากด้านบน */
 }
 
 .sub-title {
@@ -100,15 +100,13 @@ body {
     margin-top: 0 !important; /* ลบ margin เดิมที่เคยตั้งไว้ */
 }
 
-.sidebar {
-    width: 400px;        /* ล็อคความกว้างฝั่งขวาไว้ */
+.sidebar {        /* ล็อคความกว้างฝั่งขวาไว้ */
     min-width: 350px;
     background: #eef1f5;
     padding: 30px;
     border-left: 1px solid #e0e0e0;
-    height: calc(100vh - 70px); /* ให้สูงเท่าหน้าจอที่เหลือ */
     position: sticky;    /* ให้แถบเดือนค้างไว้เวลาเลื่อนแผนที่ */
-    top: 70px;
+    /* top: 70px; */
     overflow-y: auto;    /* ถ้าเดือนเยอะให้เลื่อนขึ้นลงในแถบได้ */
 }
 
@@ -295,6 +293,7 @@ body {
     max-height: none;
     overflow-y: visible;
     padding-right: 8px;
+
 }
 
 .energy-card {
